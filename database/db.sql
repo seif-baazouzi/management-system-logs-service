@@ -7,6 +7,7 @@ CREATE TABLE logs (
     label VARCHAR NOT NULL, 
     description VARCHAR NOT NULL, 
     value INT NOT NULL, 
+    date TIMESTAMP NOT NULL, 
     userID UUID NOT NULL,
     workspaceID UUID NOT NULL,
     createdAt TIMESTAMP DEFAULT NOW() 
