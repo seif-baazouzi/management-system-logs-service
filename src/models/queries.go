@@ -3,6 +3,8 @@ package models
 import (
 	"database/sql"
 	"logs-service/src/db"
+
+	"github.com/google/uuid"
 )
 
 func GetLogs(workspaceID string, startingDate string, endingDate string) ([]Log, error) {
@@ -37,5 +39,28 @@ func GetLogs(workspaceID string, startingDate string, endingDate string) ([]Log,
 	}
 
 	return logs, nil
+}
 
+func CreateLog(log LogBody, workspaceID string, userID string) (string, error) {
+	conn := db.GetPool()
+	defer db.ClosePool(conn)
+
+	logID := uuid.New()
+
+	_, err := conn.Exec(
+		"INSERT INTO logs (logID, label, description, value, date, workspaceID, userID) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+		logID,
+		log.Label,
+		log.Description,
+		log.Value,
+		log.Date,
+		workspaceID,
+		userID,
+	)
+
+	if err != nil {
+		return "", err
+	}
+
+	return logID.String(), nil
 }

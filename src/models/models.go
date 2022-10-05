@@ -16,3 +16,10 @@ type Log struct {
 	WorkspaceID uuid.UUID `json:"workspaceID"`
 	CreatedAt   time.Time `json:"createdAt"`
 }
+
+type LogBody struct {
+	Label       string    `json:"label"`
+	Description string    `json:"description"`
+	Value       uint      `json:"value"`
+	Date        time.Time `json:"date"`
+}
