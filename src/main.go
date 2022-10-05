@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"logs-service/src/auth"
 	"logs-service/src/db"
+	"logs-service/src/handlers"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -20,6 +22,8 @@ func main() {
 	app.Use(logger.New(logger.Config{
 		Format: "[${ip}]:${port} ${status} - ${method} ${path}\n",
 	}))
+
+	app.Get("/api/v1/logs/:workspaceID/month/:month", auth.IsWorkspaceOwner, handlers.GetLogs)
 
 	app.Listen(fmt.Sprintf(":%s", os.Getenv("PORT")))
 }
