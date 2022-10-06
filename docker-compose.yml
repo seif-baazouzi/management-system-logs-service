@@ -12,7 +12,7 @@ services:
       DB_USER: "postgres"
       DB_PASSWORD: "password"
       DB_HOST: "db"
-      DB_NAME: "notes"
+      DB_NAME: "logs"
       PORT: "3000"    
       ACCOUNTS_SERVICE: "http://127.0.0.1:3000"
       WORKSPACES_SERVICE: "http://127.0.0.1:3001"
