@@ -85,3 +85,20 @@ func UpdateLog(log LogBody, logID string, userID string) error {
 
 	return nil
 }
+
+func DeleteLog(logID string, userID string) error {
+	conn := db.GetPool()
+	defer db.ClosePool(conn)
+
+	_, err := conn.Exec(
+		"DELETE FROM logs WHERE logID = $1 AND userID = $2",
+		logID,
+		userID,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
