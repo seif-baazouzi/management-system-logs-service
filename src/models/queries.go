@@ -64,3 +64,24 @@ func CreateLog(log LogBody, workspaceID string, userID string) (string, error) {
 
 	return logID.String(), nil
 }
+
+func UpdateLog(log LogBody, logID string, userID string) error {
+	conn := db.GetPool()
+	defer db.ClosePool(conn)
+
+	_, err := conn.Exec(
+		"UPDATE logs SET label = $1, description = $2, value = $3, date = $4 WHERE logID = $5 AND userID = $6",
+		log.Label,
+		log.Description,
+		log.Value,
+		log.Date,
+		logID,
+		userID,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

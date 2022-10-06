@@ -28,3 +28,13 @@ def createWorkspace():
     workspaceID = False if "workspaceID" not in res.body else res.body["workspaceID"]
 
     return workspaceID
+
+def createLog():
+    workspaceID = createWorkspace()
+
+    body = { "label": randomString(10), "value": random.randint(10, 50), "date": today() }
+    res = testRoute(POST, f"{config.server}/api/v1/logs/{workspaceID}", headers={ "X-Token": config.token }, body=body)
+    
+    logID = False if "logID" not in res.body else res.body["logID"]
+
+    return logID

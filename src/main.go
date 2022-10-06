@@ -25,6 +25,7 @@ func main() {
 
 	app.Get("/api/v1/logs/:workspaceID/month/:month", auth.IsWorkspaceOwner, handlers.GetLogs)
 	app.Post("/api/v1/logs/:workspaceID", auth.IsWorkspaceOwner, handlers.CreateLog)
+	app.Put("/api/v1/logs/:logID", auth.IsLogin, handlers.UpdateLog)
 
 	app.Listen(fmt.Sprintf(":%s", os.Getenv("PORT")))
 }
