@@ -27,6 +27,7 @@ func main() {
 	app.Post("/api/v1/logs/:workspaceID", auth.IsWorkspaceOwner, handlers.CreateLog)
 	app.Put("/api/v1/logs/:logID", auth.IsLogin, handlers.UpdateLog)
 	app.Delete("/api/v1/logs/:logID", auth.IsLogin, handlers.DeleteLog)
+	app.Delete("/api/v1/logs/workspace/:workspaceID", auth.IsWorkspaceOwner, handlers.DeleteWorkspaceLogs)
 
 	app.Listen(fmt.Sprintf(":%s", os.Getenv("PORT")))
 }

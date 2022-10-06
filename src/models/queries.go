@@ -102,3 +102,19 @@ func DeleteLog(logID string, userID string) error {
 
 	return nil
 }
+
+func DeleteWorkspaceLogs(workspaceID string) error {
+	conn := db.GetPool()
+	defer db.ClosePool(conn)
+
+	_, err := conn.Exec(
+		"DELETE FROM logs WHERE workspaceID = $1",
+		workspaceID,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
