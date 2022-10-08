@@ -19,7 +19,7 @@ func GetLogs(workspaceID string, startingDate string, endingDate string) ([]Log,
 	rows, err = conn.Query(
 		`SELECT logID, label, description, value, date, userID, workspaceID, createdAt FROM logs
 			WHERE workspaceID = $1 AND date >= $2 AND date <= $3
-			ORDER BY createdAt`,
+			ORDER BY date DESC`,
 		workspaceID,
 		startingDate,
 		endingDate,
